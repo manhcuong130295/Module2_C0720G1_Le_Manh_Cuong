@@ -1,6 +1,5 @@
 package introduction_to_java_01.bai_tap;
 
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class ReadTheInterger {
@@ -315,7 +314,7 @@ public class ReadTheInterger {
                 default:
                     read3 = "Unknown";
             }
-            System.out.println(read1 + " "+ read2 +" "+ read3);
+            System.out.println(read1 + " " + read2 + " " + read3);
         } else {
             System.out.println("Unknown");
         }
