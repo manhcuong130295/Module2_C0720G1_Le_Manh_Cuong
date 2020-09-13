@@ -1,6 +1,6 @@
 package _03_array_method_in_java.bai_tap;
 
-public class maxOfArray {
+public class MaxOfArray {
     public static void main(String[] args) {
         int[][] array = {{20, 5, 1}, {4, 5, 7}, {8, 8, 25}};
         int max = array[0][0];

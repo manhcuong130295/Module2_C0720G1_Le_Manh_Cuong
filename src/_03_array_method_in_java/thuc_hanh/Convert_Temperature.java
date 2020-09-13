@@ -2,7 +2,7 @@ package _03_array_method_in_java.thuc_hanh;
 
 import java.util.Scanner;
 
-public class convert_temperature {
+public class Convert_Temperature {
     public static double fahrenheitToCelsius(double fahrenheit) {
         double celsius = (5.0 / 9) * (fahrenheit - 32);
         return celsius;

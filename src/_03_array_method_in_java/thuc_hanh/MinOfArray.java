@@ -1,6 +1,6 @@
 package _03_array_method_in_java.thuc_hanh;
 
-public class min_of_array {
+public class MinOfArray {
     public static int minOfArray(int[] array ) {
         int min = array[0];
         for (int i =0;i<array.length;i++) {

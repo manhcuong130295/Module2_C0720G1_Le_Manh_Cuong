@@ -4,7 +4,7 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class gopMang {
+public class GopMang {
     public static void main(String[] args) {
         int[] array1 = new int[3];
         int[] array2 = new int[4];

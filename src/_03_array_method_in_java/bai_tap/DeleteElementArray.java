@@ -1,7 +1,7 @@
 package _03_array_method_in_java.bai_tap;
 import java.util.Scanner;
 import java.util.Arrays;
-public class deleteElementArray {
+public class DeleteElementArray {
     public static void main(String[] args) {
         int [] arrayNumber = {5,6,7,8,2,1,2,3};
         int number ;

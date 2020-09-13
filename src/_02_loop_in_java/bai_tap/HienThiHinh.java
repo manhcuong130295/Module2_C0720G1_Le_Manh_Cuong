@@ -1,6 +1,6 @@
 package _02_loop_in_java.bai_tap;
 import java.util.Scanner;
-public class hienThiHinh {
+public class HienThiHinh {
         public static void main(String[] args) {
             Scanner sc = new Scanner(System.in);
             System.out.println("Menu");

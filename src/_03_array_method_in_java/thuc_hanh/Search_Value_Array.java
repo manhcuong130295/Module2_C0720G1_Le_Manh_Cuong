@@ -2,7 +2,7 @@ package _03_array_method_in_java.thuc_hanh;
 
 import java.util.Scanner;
 
-public class search_value_array {
+public class Search_Value_Array {
     public static String inputName() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter name");
