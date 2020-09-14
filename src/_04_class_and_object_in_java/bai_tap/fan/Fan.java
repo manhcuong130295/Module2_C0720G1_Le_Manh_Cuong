@@ -40,16 +40,16 @@ public class Fan {
     public int getSpeed() {
         if (this.on == true) {
             if (this.speed == this.SLOW) {
-                this.speed = this.SLOW;
+                speed = this.SLOW;
             } else if (this.speed == this.MEDIUM) {
-                this.speed = this.MEDIUM;
+                speed = this.MEDIUM;
             } else if (this.speed == this.FAST) {
-                this.speed = this.FAST;
+                speed = this.FAST;
             } else {
-                this.speed = 0;
+                speed = 0;
             }
         } else {
-            this.speed = 0;
+            speed = 0;
         }
         return speed;
     }
@@ -75,10 +75,10 @@ public class Fan {
     }
 
     public String toString() {
-        return  "Fan is\t" + "status \t"
+        return "Fan is\t" + "status \t"
                 + getStatus() + "\n"
                 + "radius\t" + this.radius + "\n"
-                + "speed\t" + this.speed + "\n"
+                + "speed\t" + getSpeed()+ "\n"
                 + "color\t" + this.color;
 
     }
