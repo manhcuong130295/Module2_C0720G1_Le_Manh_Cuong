@@ -1,26 +1,29 @@
 package _04_class_and_object_in_java.bai_tap.fan;
 
+import java.sql.SQLOutput;
+
 public class Fan {
-    final int SLOW;
-    final int MEDIUM;
-    final int FAST;
+    public static final int SLOW=1;
+    public static final int MEDIUM=2;
+    public static final int FAST=3;
     boolean on;
     int speed;
     String color;
     double radius;
 
+
     public Fan() {
-        this.radius = radius;
-        this.SLOW = 1;
-        this.MEDIUM = 2;
-        this.FAST = 3;
-        this.on = false;
+        this.radius = 5;
+//        this.on = false;
         this.speed = this.SLOW;
         this.color = "Blue";
     }
 
     public void setOn(boolean on) {
         this.on = on;
+        if (!this.on){
+            this.speed=0;
+        }
     }
 
     public boolean getOn() {
@@ -37,20 +40,22 @@ public class Fan {
         return status;
     }
 
+
+
     public int getSpeed() {
-        if (this.on == true) {
-            if (this.speed == this.SLOW) {
-                speed = this.SLOW;
-            } else if (this.speed == this.MEDIUM) {
-                speed = this.MEDIUM;
-            } else if (this.speed == this.FAST) {
-                speed = this.FAST;
-            } else {
-                speed = 0;
-            }
-        } else {
-            speed = 0;
-        }
+//        if (this.on == true) {
+//            if (this.speed == this.SLOW) {
+//                speed = this.SLOW;
+//            } else if (this.speed == this.MEDIUM) {
+//                speed = this.MEDIUM;
+//            } else if (this.speed == this.FAST) {
+//                speed = this.FAST;
+//            } else {
+//                speed = 0;
+//            }
+//        } else {
+//            speed = 0;
+//        }
         return speed;
     }
 
@@ -78,7 +83,7 @@ public class Fan {
         return "Fan is\t" + "status \t"
                 + getStatus() + "\n"
                 + "radius\t" + this.radius + "\n"
-                + "speed\t" + getSpeed()+ "\n"
+                + "speed\t" + this.speed + "\n"
                 + "color\t" + this.color;
 
     }

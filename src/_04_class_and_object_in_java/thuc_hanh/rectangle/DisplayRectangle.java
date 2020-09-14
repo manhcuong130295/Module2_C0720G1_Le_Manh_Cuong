@@ -13,7 +13,7 @@ public class DisplayRectangle {
         height = sc.nextDouble();
         Rectangle rectangle = new Rectangle(width,height);
         System.out.println("Area of this rectangle:\t"+rectangle.getArea());
-        System.out.println("Perimeter of this rectangle:'t"+rectangle.getPerimeter());
+        System.out.println("Perimeter of this rectangle:\t"+rectangle.getPerimeter());
         System.out.println("Your Rectangle:\t"+rectangle.displayRectangle());
 
     }

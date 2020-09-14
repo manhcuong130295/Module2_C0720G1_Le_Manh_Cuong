@@ -2,7 +2,7 @@ package _04_class_and_object_in_java.bai_tap.phuong_trinh_bac_2;
 
 import java.util.Scanner;
 
-public class InPutPhuongTrinh {
+public class GiaiPhuongTrinh {
     public static void main(String[] args) {
         System.out.println("Giải hương trình ax^2 + bx + c = 0");
         Scanner sc = new Scanner(System.in);

@@ -5,24 +5,16 @@ import java.util.Scanner;
 public class DisplayFan {
     public static void main(String[] args) {
         Fan fan1 = new Fan();
-        boolean on = true;
-        String color = "yellow";
-        int speed = 3;
-        double radius = 10;
-        fan1.setOn(on);
-        fan1.setSpeed(speed);
-        fan1.setColor(color);
-        fan1.setRadius(radius);
+        fan1.setSpeed(Fan.FAST);
+        fan1.setOn(true);
+        fan1.setColor("yellow");
+        fan1.setRadius(10);
         System.out.println(fan1.toString());
         Fan fan2 = new Fan();
-        boolean on2 = false;
-        String color2 = "blue";
-        int speed2 = 2;
-        double radius2 = 5;
-        fan2.setOn(on2);
-        fan2.setColor(color2);
-        fan2.setSpeed(speed2);
-        fan2.setRadius(radius2);
+        fan2.setSpeed(Fan.MEDIUM);
+        fan2.setOn(false);
+        fan2.setColor("blue");
+        fan2.setRadius(5);
         System.out.println(fan2.toString());
     }
 }
