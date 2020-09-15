@@ -1,4 +1,4 @@
-package _05_modifier_acces.thuc_hanh;
+package _05_modifier_acces.bai_tap;
 
 public class Circle {
     private double radius = 1.0;
