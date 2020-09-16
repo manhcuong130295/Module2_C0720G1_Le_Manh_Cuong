@@ -124,6 +124,6 @@ class TestMovablePoint {
     public static void main(String[] args) {
         MovablePoint movablePoint = new MovablePoint(1,2,3, 4);
         System.out.println(movablePoint.toString());
-        System.out.println(Arrays.toString(movablePoint.move()));
+        System.out.println("XY moved=\t"+Arrays.toString(movablePoint.move()));
     }
 }
