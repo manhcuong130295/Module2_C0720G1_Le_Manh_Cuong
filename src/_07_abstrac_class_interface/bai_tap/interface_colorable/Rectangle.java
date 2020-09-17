@@ -1,8 +1,8 @@
-package _07_abstrac_class_interface.bai_tap;
+package _07_abstrac_class_interface.bai_tap.interface_colorable;
 
 class Rectangle extends Shape {
-    private double width = 1.0;
-    private double length = 1.0;
+    private double width;
+    private double length;
 
     public Rectangle() {
 
@@ -51,9 +51,5 @@ class Rectangle extends Shape {
                 + super.toString();
     }
 
-    @Override
-    public void resize(double percent) {
-        this.width*=(percent/100);
-        this.length*=(percent/100);
-    }
+
 }

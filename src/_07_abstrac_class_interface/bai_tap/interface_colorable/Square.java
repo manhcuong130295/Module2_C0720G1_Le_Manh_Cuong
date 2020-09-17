@@ -1,8 +1,6 @@
-package _06_inheritance_in_java.thuc_hanh;
+package _07_abstrac_class_interface.bai_tap.interface_colorable;
 
-import _07_abstrac_class_interface.bai_tap.interface_resize.Shape;
-
-public class Square extends Shape {
+public class Square extends Shape implements Colorable {
     private double side;
 
     public Square() {
@@ -35,12 +33,14 @@ public class Square extends Shape {
                 + getArea();
     }
 
-    double getArea() {
-        return side * side;
+    @Override
+    public double getArea() {
+        return side*4;
     }
 
     @Override
-    public void resize(double percent) {
-        this.side *= (percent / 200);
+    public void howTocColor() {
+        System.out.println("Color all four sides");
     }
+
 }

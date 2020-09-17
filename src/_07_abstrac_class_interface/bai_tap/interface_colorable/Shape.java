@@ -1,6 +1,8 @@
-package _07_abstrac_class_interface.bai_tap;
+package _07_abstrac_class_interface.bai_tap.interface_colorable;
 
-public abstract class Shape implements Resizeable {
+import _07_abstrac_class_interface.bai_tap.interface_resize.Resizeable;
+
+public abstract class Shape {
     private String color;
     private boolean filled;
 
@@ -30,6 +32,8 @@ public abstract class Shape implements Resizeable {
         this.filled = filled;
     }
 
+    abstract public double getArea();
+
     @Override
     public String toString() {
         return "A Shape with color of "
@@ -38,7 +42,9 @@ public abstract class Shape implements Resizeable {
                 + (isFilled() ? "filled" : "not filled");
     }
 
-    @Override
+
+}
+    /* @Override
     public void resize(double percent) {
 
     }
@@ -46,6 +52,6 @@ public abstract class Shape implements Resizeable {
         for (Shape x : shape) {
             System.out.println(x.toString());
         }
-    }
-}
+    }*/
+
 

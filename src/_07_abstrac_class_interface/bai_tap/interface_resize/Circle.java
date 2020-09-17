@@ -1,4 +1,4 @@
-package _07_abstrac_class_interface.bai_tap;
+package _07_abstrac_class_interface.bai_tap.interface_resize;
 
 class Circle extends Shape {
     private double radius;

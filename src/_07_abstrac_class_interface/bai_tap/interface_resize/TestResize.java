@@ -1,4 +1,9 @@
-package _07_abstrac_class_interface.bai_tap;
+package _07_abstrac_class_interface.bai_tap.interface_resize;
+
+import _07_abstrac_class_interface.bai_tap.interface_resize.Circle;
+import _07_abstrac_class_interface.bai_tap.interface_resize.Rectangle;
+import _07_abstrac_class_interface.bai_tap.interface_resize.Shape;
+import _07_abstrac_class_interface.bai_tap.interface_resize.Square;
 
 public class TestResize {
     public static void main(String[] args) {
@@ -11,7 +16,7 @@ public class TestResize {
             System.out.println(a);
         }
         for (Shape a : shapes) {
-            a.resize(Math.random() * 1000);
+            a.resize(Math.random() * 100);
         }
         System.out.println("\n");
         Shape.printShape(shapes);

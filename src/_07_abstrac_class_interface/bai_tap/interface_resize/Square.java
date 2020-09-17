@@ -1,6 +1,6 @@
-package _07_abstrac_class_interface.bai_tap;
+package _07_abstrac_class_interface.bai_tap.interface_resize;
 
-import _07_abstrac_class_interface.bai_tap.Shape;
+import _07_abstrac_class_interface.bai_tap.interface_resize.Shape;
 
 public class Square extends Shape {
     private double side;
