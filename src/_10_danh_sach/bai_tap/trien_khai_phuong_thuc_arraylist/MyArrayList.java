@@ -49,7 +49,7 @@ public class MyArrayList<E> {
             elements[index] = element;
             size++;
         } else {
-            for (int i = size; i >= index; i--) {
+            for (int i = size; i > index; i--) {
                 elements[i] = elements[i - 1];
             }
             elements[index] = element;
@@ -65,19 +65,29 @@ public class MyArrayList<E> {
             throw new IllegalAccessException("minCapacity:" + minCapacity);
         }
     }
+
     public E get(int index) {
         return (E) elements[index];
     }
+
     public int indexOf(E element) {
-        int index= -1;
-        for (int i=0;i<size;i++) {
-            if(this.elements.equals(element)){
-                return i;
+        int index = -1;
+        for (int i = 0; i < size; i++) {
+            if (this.elements[i].equals(element)) {
+                 index = i;
+                 break;
             }
         }
         return index;
     }
+
     public boolean contains(E element) {
-        return this.indexOf(element)>=0;
+        return this.indexOf(element) >= 0;
+    }
+    public MyArrayList<E> clone() {
+        MyArrayList newArray= new MyArrayList();
+        newArray.elements=Arrays.copyOf(this.elements,this.size);
+        newArray.size=this.size;
+        return newArray;
     }
 }
