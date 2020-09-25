@@ -22,7 +22,7 @@ public class Palindrome {
         boolean result = false;
         System.out.println(queue);
         while (!stack.isEmpty()) {
-            if (stack.pop() ==queue.poll()) {
+            if (stack.pop() == queue.poll()) {
                 result = true;
                 break;
             } else {
@@ -30,7 +30,7 @@ public class Palindrome {
                 break;
             }
         }
-        if(result) {
+        if (result) {
             System.out.println("is palindrome string");
         } else {
             System.out.println("isn't palindrome string");
