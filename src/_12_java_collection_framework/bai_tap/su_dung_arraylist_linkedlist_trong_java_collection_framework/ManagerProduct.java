@@ -78,7 +78,9 @@ public class ManagerProduct {
     }
 
     private static void disPlayListProduct() {
-        System.out.println(listProduct);
+        for (Product product: listProduct){
+            System.out.println(product.toString());
+        }
     }
 
     private static void deleteProduct() {
@@ -101,7 +103,6 @@ public class ManagerProduct {
         sc.nextLine();
         System.out.println("Enter new Name:");
         String newName = sc.nextLine();
-//        sc.nextLine();
         System.out.println("Enter new price:");
         int newPrice = sc.nextInt();
         for (int i = 0; i < listProduct.size(); i++) {
