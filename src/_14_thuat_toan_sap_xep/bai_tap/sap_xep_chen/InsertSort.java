@@ -1,9 +1,11 @@
 package _14_thuat_toan_sap_xep.bai_tap.sap_xep_chen;
 
+import java.util.Arrays;
+
 public class InsertSort {
     static int[] array = {5, 7, 2, 12, 20, 11, 8, 15, 55, 100, 99};
 
-    public static void insertSortUp(int[] array) {
+    public static void insertSort(int[] array) {
         for (int i = 1; i < array.length; i++) {
             int currentElement = array[i];
             int k ;
@@ -14,7 +16,10 @@ public class InsertSort {
             for (k = i - 1; k >= 0 && array[k] > currentElement; k--) {
                 array[k + 1] = array[k];
             }
+            System.out.println(Arrays.toString(array));
             array[k + 1] = currentElement;
+            System.out.println(Arrays.toString(array));
+            System.out.println("xong vòng lặp lần " + i);
         }
     }
 
@@ -31,7 +36,8 @@ public class InsertSort {
 //    }
 
     public static void main(String[] args) {
-        insertSortUp(array);
+        System.out.println("mảng chưa thay đổi \t" + Arrays.toString(array));
+        insertSort(array);
         for (int e : array) {
             System.out.print(e + " ");
         }
