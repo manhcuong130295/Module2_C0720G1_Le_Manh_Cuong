@@ -3,30 +3,31 @@ package _15_xu_ly_ngoai_le_debug.bai_tap;
 import java.util.Scanner;
 
 public class Triangle {
-    private static Scanner sc = new Scanner(System.in);
+        public static void main(String[] args) throws IllegalTriangleException {
 
-    public static void main(String[] args) {
-        double a, b, c;
-        boolean flag;
+        Scanner sc = new Scanner(System.in);
+        int a, b, c;
+        boolean check = false;
+
         do {
-            System.out.println("Nhập độ dài 3 cạnh của tam giác");
-            System.out.println("nhập a: ");
-            a = sc.nextDouble();
-            System.out.println("nhập b: ");
-            b = sc.nextDouble();
-            System.out.println("nhập c: ");
-            c = sc.nextDouble();
-            flag = a > 0 && b > 0 && c > 0 || a + b > c && b + c > a && c + a > b;
-            if (!flag) {
-                try {
-                    throw new IllegalTriangleException();
-                } catch (IllegalTriangleException e) {
-                    e.printStackTrace();
+            try {
+                System.out.println("nhập 3 cạnh của tam giác");
+                System.out.println("nhập cạnh a");
+                a = sc.nextInt();
+                System.out.println("nhập cạnh b");
+                b = sc.nextInt();
+                System.out.println("nhập cạnh c");
+                c = sc.nextInt();
+                check = (a > 0 && b > 0 && c > 0 && a + b > c && a + c > b && b + c > a);
+                if (!check) {
+                    throw new IllegalTriangleException("độ dài mỗi cạnh phải lớn hơn 0 và tổng độ dài 2 cạnh bất kỳ lớn hơn cạnh còn lại");
+                } else {
+                    System.out.println("a= " + a + " " + "b= " + b + " " + "c= " + c);
                 }
+            } catch (IllegalTriangleException e) {
+               e.printStackTrace();
             }
-        } while (!flag);
-        System.out.println("a,b,c là giá trị hợp lệ của 3 cạnh của một tam giác: "+a+" , "+b+" , "+c);
+        } while (!check);
     }
-
 
 }
