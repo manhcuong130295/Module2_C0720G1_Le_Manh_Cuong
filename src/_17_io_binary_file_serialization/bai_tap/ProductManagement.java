@@ -10,8 +10,6 @@ public class ProductManagement {
     public static final String FILE_PATH = "D:\\ChuongTrinhCodegym\\Module2_C0720G1_Le_Manh_Cuong\\src\\_17_io_binary_file_serialization\\bai_tap\\Product";
 
     public static void addProduct() {
-
-
         try {
             Scanner sc = new Scanner(System.in);
             System.out.println("Enter Id product");
@@ -78,8 +76,8 @@ public class ProductManagement {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         while (true) {
-            System.out.println("1.Thêm sản phẩm" +
-                    "\n2.Hiển thị danh sách sản phẩm" + "\n3.t Tìm theo Id" + "\n4.Exit");
+            System.out.println("1.Add new product" +
+                    "\n2.Display list products" + "\n3.Search by id" + "\n4.Exit");
             try {
                 switch (Integer.parseInt(sc.nextLine())) {
                     case 1:
@@ -95,10 +93,10 @@ public class ProductManagement {
                         System.exit(0);
                         break;
                     default:
-                        System.out.println("Không có lựa chọn này");
+                        System.out.println("Please choose 1 to 4");
                 }
             } catch (NumberFormatException e) {
-                System.out.println("xin hãy nhập số");
+                System.out.println("Please input number");
             }
         }
     }
