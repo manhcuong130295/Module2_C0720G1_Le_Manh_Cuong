@@ -12,7 +12,7 @@ public abstract class Services {
     public Services() {
     }
 
-    public Services(String id, String nameService, String costOfUse, String rentalCost, String maxPeople, String rentalType) {
+    public Services(String id, String nameService, String areaOfUse, String rentalCost, String maxPeople, String rentalType) {
         this.id = id;
         this.nameService = nameService;
         this.areaOfUse = areaOfUse;

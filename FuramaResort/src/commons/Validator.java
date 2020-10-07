@@ -87,7 +87,7 @@ public class Validator {
     }
     public static boolean
     regexFreeConvenient(String freeConvenient) {
-        final String REGEX_FREECONVENIENT = "[massage]| [karaoke]| [food]| [drink]| [car]";
+        final String REGEX_FREECONVENIENT = "(massage|karaoke|food|drink|car)";
         Pattern pattern = Pattern.compile(REGEX_FREECONVENIENT);
         Matcher matcher = pattern.matcher(freeConvenient);
         boolean check = matcher.matches();
