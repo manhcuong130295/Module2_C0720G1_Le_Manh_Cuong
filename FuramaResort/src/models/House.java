@@ -5,7 +5,7 @@ public class House extends Services {
     private String anotherConvenientOfHouse = "";
     private String floorOfHouse;
 
-    public House() {
+    public House(String id, String name, String areaOfUse, String rentalCost, String maxPeople, String rentalType, String standardRoomOfVilla, String anotherConvenientOfVilla, String poolArea, String floorVilla) {
     }
 
     public House(String standardRoomOfHouse, String anotherConvenientOfHouse, String floorsOfhouse) {

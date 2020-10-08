@@ -85,6 +85,7 @@ public class Validator {
 //        }
 //        return check;
     }
+
     public static boolean
     regexFreeConvenient(String freeConvenient) {
         final String REGEX_FREECONVENIENT = "(massage|karaoke|food|drink|car)";
@@ -93,6 +94,7 @@ public class Validator {
         boolean check = matcher.matches();
         return check;
     }
+
     public static boolean regexFloor(String floor) {
         final String REGEX_FLOOR = "[1-9]\\d{0,}$";
         Pattern pattern = Pattern.compile(REGEX_FLOOR);
@@ -113,6 +115,46 @@ public class Validator {
         final String REGEXSTANDARD = "^[A-Z]{1}[a-z]*";
         Pattern pattern = Pattern.compile(REGEXSTANDARD);
         Matcher matcher = pattern.matcher(standard);
+        boolean check = matcher.matches();
+        return check;
+    }
+
+    public static boolean regexNameCustomer(String fullName) {
+        final String REGEXNAMECUS = "^([A-Z]{1}([a-z])*)(\\s[A-Z]{1}[a-z]*)*$";
+        Pattern pattern = Pattern.compile(REGEXNAMECUS);
+        Matcher matcher = pattern.matcher(fullName);
+        boolean check = matcher.matches();
+        return check;
+    }
+
+    public static boolean regexEmail(String email) {
+        final String REGEXEMAIL = "^[A-Za-z0-9]+[A-Za-z0-9]*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)$";
+        Pattern pattern = Pattern.compile(REGEXEMAIL);
+        Matcher matcher = pattern.matcher(email);
+        boolean check = matcher.matches();
+        return check;
+    }
+
+    public static boolean regexBirthday(String birthday) {
+        final String REGEX_BIRTHDAY = "^([0][1-9]|[1-2][0-9]|[3][0-1])[/]([0][1-9]|[1][0-2])[/]([1][9]\\d{1}[1-9]|[2][0][0][0-2])$";
+        Pattern pattern = Pattern.compile(REGEX_BIRTHDAY);
+        Matcher matcher = pattern.matcher(birthday);
+        boolean check = matcher.matches();
+        return check;
+    }
+
+    public static boolean regexIdNumber(String idNumber) {
+        final String REGEX_IDNUMBER = "\\d{3}\\s\\d{3}\\s\\d{3}";
+        Pattern pattern = Pattern.compile(REGEX_IDNUMBER);
+        Matcher matcher = pattern.matcher(idNumber);
+        boolean check = matcher.matches();
+        return check;
+    }
+
+    public static boolean regexSex(String sex) {
+        final String REGEX_SEX = "(Male)|(Female)|(Unknow)";
+        Pattern pattern = Pattern.compile(REGEX_SEX);
+        Matcher matcher = pattern.matcher(sex);
         boolean check = matcher.matches();
         return check;
     }

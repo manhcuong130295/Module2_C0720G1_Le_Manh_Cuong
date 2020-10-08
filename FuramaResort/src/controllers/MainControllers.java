@@ -1,9 +1,7 @@
 package controllers;
 
-import commons.Validator;
-import models.House;
-import models.Room;
-import models.Villa;
+import commons.*;
+import models.*;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -14,9 +12,10 @@ import java.util.Scanner;
 import static commons.Validator.*;
 
 public class MainControllers {
-    private static final String HOUSE_FILE = "D:\\ChuongTrinhCodegym\\Module2_C0720G1_Le_Manh_Cuong\\FuramaResort\\src\\House.csv";
-    private static final String VILLA_FILE = "D:\\ChuongTrinhCodegym\\Module2_C0720G1_Le_Manh_Cuong\\FuramaResort\\src\\Villa.csv";
-    private static final String ROOM_FILE = "D:\\ChuongTrinhCodegym\\Module2_C0720G1_Le_Manh_Cuong\\FuramaResort\\src\\Room.csv";
+    private static final String CUS_FILE = "D:\\ChuongTrinhCodegym\\Module2_C0720G1_Le_Manh_Cuong\\FuramaResort\\src\\data\\Customer.csv";
+    private static final String HOUSE_FILE = "D:\\ChuongTrinhCodegym\\Module2_C0720G1_Le_Manh_Cuong\\FuramaResort\\src\\data\\House.csv";
+    private static final String VILLA_FILE = "D:\\ChuongTrinhCodegym\\Module2_C0720G1_Le_Manh_Cuong\\FuramaResort\\src\\data\\Villa.csv";
+    private static final String ROOM_FILE = "D:\\ChuongTrinhCodegym\\Module2_C0720G1_Le_Manh_Cuong\\FuramaResort\\src\\data\\Room.csv";
     public static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -41,7 +40,10 @@ public class MainControllers {
                         showService();
                         break;
                     case 3:
-                        //search();
+                        addNewCustomer();
+                        break;
+                    case 4:
+                        showInformationOfCustomer();
                         break;
                     case 7:
                         System.exit(0);
@@ -52,6 +54,124 @@ public class MainControllers {
             } catch (NumberFormatException e) {
                 System.out.println("vui lòng nhập số");
             }
+        }
+    }
+
+    private static void showInformationOfCustomer() {
+
+    }
+
+    private static void addNewCustomer() {
+        try {
+            System.out.println("Nhập thông tin khách hàng");
+            boolean check = false;
+            String fullName = null;
+            do {
+                try {
+                    System.out.println("Nhập tên khách hàng");
+                    fullName = sc.nextLine();
+                    check = regexNameCustomer(fullName);
+                    if (check) {
+                        System.out.println("Ok");
+                    } else {
+                        throw new NameException("Tên Khách hàng phải in hoa ký tự đầu tiên trong mỗi từ");
+                    }
+                } catch (NameException e) {
+                    e.printStackTrace();
+                }
+            } while (!check);
+            check = false;
+            String birthday = null;
+
+            do {
+                try {
+                    System.out.println("Ngày tháng năm sinh");
+                    birthday = sc.nextLine();
+                    check = regexBirthday(birthday);
+                    if (check) {
+                        System.out.println("Ok");
+                    } else {
+                        throw new BirthdayException("Lỗi");
+                    }
+                } catch (BirthdayException e) {
+                    e.printStackTrace();
+                }
+            } while (!check);
+            check = false;
+            String sex = null;
+           do {
+               try{
+                   System.out.println("Giới tính");
+                   sex=sc.nextLine();
+                   check=regexSex(sex);
+                   if (check){
+                       System.out.println("Ok");
+                   }else {
+                       throw new SexException("");
+                   }
+               }catch (SexException e){
+                   e.printStackTrace();
+               }
+
+           }while (!check);
+           check=false;
+            String idCard;
+            do {
+                try {
+                    System.out.println("Nhập số CMND");
+                    idCard = sc.nextLine();
+                    check = regexIdNumber(idCard);
+                    if (check) {
+                        System.out.println("Ok");
+                    } else {
+                        throw new IdCardException("Id Card phải có 9 chữ số và theo định dạng XXX XXX XXX");
+                    }
+                } catch (IdCardException e) {
+                    e.printStackTrace();
+                }
+            }
+            while (!check);
+            System.out.println("Nhập sđt");
+            String numberPhone=sc.nextLine();
+            String email = null;
+            do {
+                try {
+                    System.out.println("Nhập email khách hàng:");
+                    email = sc.nextLine();
+                    check = regexEmail(email);
+                    if (check) {
+                        System.out.println();
+                    } else {
+                        throw new EmailException("Email phải đúng định dạng abc@abc.abc");
+                    }
+                } catch (EmailException e) {
+                    e.printStackTrace();
+                }
+            }
+            while (!check);
+            check = false;
+            System.out.println("Loại khách hàng");
+            String typeOfCustomer=sc.nextLine();
+            System.out.println("Địa chỉ");
+            String address=sc.nextLine();
+            Services services=new Services() {
+                @Override
+                public String showInfo() {
+                    return null;
+                }
+            };
+            Customer customer = new Customer(fullName,birthday,sex,numberPhone,email,typeOfCustomer,address,services);
+            FileWriter fileWriter = new FileWriter(CUS_FILE);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            String line = customer.getFullName() + "," + customer.getBirthDay() + ","
+                    + customer.getSex() + "," + customer.getIdCard() + "," + customer.getEmail() + "," +
+                    customer.getFullName() + "," + customer.getTypeOfCustomer() + "," + customer.getAddress() + "," + customer.getServices();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (NumberFormatException e) {
+            System.out.println("Vui lòng nhập số");
+        } catch (InputMismatchException e) {
+            System.out.println("Nhập đúng định dạng");
         }
     }
 
@@ -94,7 +214,7 @@ public class MainControllers {
 
         try {
             boolean check = false;
-            System.out.println("Nhập thông tin của villa ");
+            System.out.println("Nhập thông tin của Villa");
             String id;
             do {
                 System.out.println("Nhập mã dịch vụ");
@@ -106,7 +226,6 @@ public class MainControllers {
                     System.out.println("sai định dạng");
                 }
             } while (!check);
-            check = false;
             String name;
             do {
                 System.out.println("Nhập tên dịch vụ");
@@ -121,7 +240,7 @@ public class MainControllers {
             check = false;
             String areaOfUse;
             do {
-                System.out.println("Nhập diện tích sử dụng");
+                System.out.println("Nhập diện tích sửu dụng");
                 areaOfUse = sc.nextLine();
                 check = regexAreaOfUse(areaOfUse);
                 if (check) {
@@ -171,7 +290,7 @@ public class MainControllers {
             do {
                 System.out.println("Tiêu chuẩn phòng");
                 standardRoomOfVilla = sc.nextLine();
-                check = regexStandard(standardRoomOfVilla);
+                check = Validator.regexStandard(standardRoomOfVilla);
                 if (check) {
                     System.out.println("Ok");
                 } else {
@@ -180,7 +299,7 @@ public class MainControllers {
             } while (!check);
             check = false;
             System.out.println("Mô tả tiện nghi khác");
-            String anotherConvenient = sc.nextLine();
+            String anotherConvenientOfVilla = sc.nextLine();
             String poolArea;
             do {
                 System.out.println("Diện tích hồ bơi");
@@ -193,33 +312,28 @@ public class MainControllers {
                 }
             } while (!check);
             check = false;
-            String floorOfVilla;
+            String floorVilla;
             do {
                 System.out.println("Số tầng");
-                floorOfVilla = sc.nextLine();
-                check = regexFloor(floorOfVilla);
+                floorVilla = sc.nextLine();
+                check = regexFloor(floorVilla);
                 if (check) {
                     System.out.println("Ok");
                 } else {
                     System.out.println("sai định dạng");
                 }
             } while (!check);
-
-            Villa villa = new Villa(id, name, areaOfUse,
-                    rentalCost,
-                    maxPeople,
-                    rentalType,
-                    standardRoomOfVilla,
-                    anotherConvenient, poolArea
-                    , floorOfVilla);
+            Villa villa = new Villa(id, name, areaOfUse, rentalCost, maxPeople, rentalType, standardRoomOfVilla, anotherConvenientOfVilla, poolArea, floorVilla);
             String line = villa.getId() + "," + villa.getNameService() + "," + villa.getAreaOfUse() + "," + villa.getRentalCost() + "," + villa.getMaxPeople() + "," + villa.getRentalType() + "," + villa.getStandardRoomOfVilla()
-                    + "," + villa.getAnotherConvenient() + "," + villa.getPoolArea() + "," + villa.getFloorOfVilla() + "\n";
+                    + "," + villa.getAnotherConvenient() + "," + villa.getFloorOfVilla();
             FileWriter fileWriter = new FileWriter(VILLA_FILE, true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             bufferedWriter.write(line);
             bufferedWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (NumberFormatException e) {
+            System.out.println("Vui lòng nhập số");
         } catch (InputMismatchException e) {
             System.out.println("Nhập đúng định dạng");
         }
@@ -315,18 +429,6 @@ public class MainControllers {
             check = false;
             System.out.println("Mô tả tiện nghi khác");
             String anotherConvenientOfHouse = sc.nextLine();
-            String poolArea;
-            do {
-                System.out.println("Diện tích hồ bơi");
-                poolArea = sc.nextLine();
-                check = regexPoolArea(poolArea);
-                if (check) {
-                    System.out.println("Ok");
-                } else {
-                    System.out.println("sai định dạng");
-                }
-            } while (!check);
-            check = false;
             String floorHouse;
             do {
                 System.out.println("Số tầng");
@@ -559,7 +661,7 @@ public class MainControllers {
                 temp = line.split(",");
                 room = new Room(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6]);
                 roomList.add(room);
-                //  bufferedReader.close();
+                bufferedReader.close();
             }
             for (Room room1 : roomList) {
                 System.out.println(room1.toString());
