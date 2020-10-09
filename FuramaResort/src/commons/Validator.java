@@ -1,5 +1,7 @@
 package commons;
 
+import models.FreeConvenient;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -87,10 +89,10 @@ public class Validator {
     }
 
     public static boolean
-    regexFreeConvenient(String freeConvenient) {
+    regexFreeConvenient(String nameFreeConvenient) {
         final String REGEX_FREECONVENIENT = "(massage|karaoke|food|drink|car)";
         Pattern pattern = Pattern.compile(REGEX_FREECONVENIENT);
-        Matcher matcher = pattern.matcher(freeConvenient);
+        Matcher matcher = pattern.matcher(nameFreeConvenient);
         boolean check = matcher.matches();
         return check;
     }
@@ -136,7 +138,7 @@ public class Validator {
     }
 
     public static boolean regexBirthday(String birthday) {
-        final String REGEX_BIRTHDAY = "^([0][1-9]|[1-2][0-9]|[3][0-1])[/]([0][1-9]|[1][0-2])[/]([1][9]\\d{1}[1-9]|[2][0][0][0-2])$";
+        final String REGEX_BIRTHDAY = "^([0][1-9]|[1-2][0-9]|[3][0-1])[/]([0][1-9]|[1][0-2])[/]\\d{4}$";
         Pattern pattern = Pattern.compile(REGEX_BIRTHDAY);
         Matcher matcher = pattern.matcher(birthday);
         boolean check = matcher.matches();
@@ -152,7 +154,7 @@ public class Validator {
     }
 
     public static boolean regexSex(String sex) {
-        final String REGEX_SEX = "(Male)|(Female)|(Unknow)";
+        final String REGEX_SEX = "(male)|(female)|(unknow)";
         Pattern pattern = Pattern.compile(REGEX_SEX);
         Matcher matcher = pattern.matcher(sex);
         boolean check = matcher.matches();

@@ -4,10 +4,7 @@ import commons.*;
 import models.*;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 import static commons.Validator.*;
 
@@ -58,39 +55,69 @@ public class MainControllers {
     }
 
     private static void showInformationOfCustomer() {
-
+        List<Customer> customerList = new ArrayList<>();
+        try {
+            FileReader fileReader = new FileReader(CUS_FILE);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String line;
+            String temp[];
+            Customer customer;
+            while ((line = bufferedReader.readLine()) != null) {
+                temp = line.split(",");
+                customer = new Customer(temp[0], temp[1], temp[2], temp[3], Integer.parseInt(temp[4]), temp[5], temp[6], temp[7], null);
+                customerList.add(customer);
+            }
+            bufferedReader.close();
+            for (Customer customer1 : customerList) {
+                System.out.println(customer1.toString());
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void addNewCustomer() {
         try {
-            System.out.println("Nhập thông tin khách hàng");
             boolean check = false;
-            String fullName = null;
+            System.out.println("Nhập thông tin khách hàng");
+            String fullName = " ";
             do {
                 try {
-                    System.out.println("Nhập tên khách hàng");
+                    System.out.println("Họ và tên:");
                     fullName = sc.nextLine();
                     check = regexNameCustomer(fullName);
                     if (check) {
                         System.out.println("Ok");
                     } else {
-                        throw new NameException("Tên Khách hàng phải in hoa ký tự đầu tiên trong mỗi từ");
+                        throw new NameException(" Tên Khách hàng phải in hoa ký tự đầu tiên trong mỗi từ");
                     }
                 } catch (NameException e) {
                     e.printStackTrace();
                 }
-            } while (!check);
+            }
+            while (!check);
             check = false;
-            String birthday = null;
-
+            String birthDay = " ";
             do {
                 try {
-                    System.out.println("Ngày tháng năm sinh");
-                    birthday = sc.nextLine();
-                    check = regexBirthday(birthday);
+                    System.out.println("Ngày tháng năm sinh(xx/mm/yyyy");
+                    birthDay = sc.nextLine();
+                    check = regexBirthday(birthDay);
+
                     if (check) {
-                        System.out.println("Ok");
+                        String[] arrBirthday = birthDay.split("/");
+                        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+                        int inputYear = Integer.parseInt(arrBirthday[2]);
+                        if (inputYear > 1900 && currentYear - inputYear >= 18) {
+                            System.out.println("Ok");
+                        } else {
+                            check = false;
+                            throw new BirthdayException("Năm sinh phải >1900 và nhỏ hơn năm hiện tại 18 năm, đúng định dạng dd/mm/yyyy");
+                        }
                     } else {
+
                         throw new BirthdayException("Lỗi");
                     }
                 } catch (BirthdayException e) {
@@ -98,24 +125,26 @@ public class MainControllers {
                 }
             } while (!check);
             check = false;
-            String sex = null;
-           do {
-               try{
-                   System.out.println("Giới tính");
-                   sex=sc.nextLine();
-                   check=regexSex(sex);
-                   if (check){
-                       System.out.println("Ok");
-                   }else {
-                       throw new SexException("");
-                   }
-               }catch (SexException e){
-                   e.printStackTrace();
-               }
+            String sex = " ";
+            do {
+                try {
+                    System.out.println("Giới tính");
+                    sex = sc.nextLine();
+                    String tempSex = sex.toLowerCase();
+                    check = regexSex(tempSex);
+                    if (check) {
+                        sex = Character.toUpperCase(tempSex.charAt(0)) + tempSex.substring(1);
+                        System.out.println("Ok");
+                    } else {
+                        throw new SexException("");
+                    }
+                } catch (SexException e) {
+                    e.printStackTrace();
+                }
+            } while (!check);
+            check = false;
 
-           }while (!check);
-           check=false;
-            String idCard;
+            String idCard = " ";
             do {
                 try {
                     System.out.println("Nhập số CMND");
@@ -124,57 +153,64 @@ public class MainControllers {
                     if (check) {
                         System.out.println("Ok");
                     } else {
-                        throw new IdCardException("Id Card phải có 9 chữ số và theo định dạng XXX XXX XXX");
+                        throw new IdCardException("");
                     }
                 } catch (IdCardException e) {
                     e.printStackTrace();
                 }
-            }
-            while (!check);
-            System.out.println("Nhập sđt");
-            String numberPhone=sc.nextLine();
-            String email = null;
+            } while (!check);
+            check = false;
+            int numberPhone = 0;
             do {
                 try {
-                    System.out.println("Nhập email khách hàng:");
+                    check = true;
+                    System.out.println("Số điện thoại:");
+                    numberPhone = Integer.parseInt(sc.nextLine());
+
+                } catch (InputMismatchException e) {
+                    e.getMessage();
+                    check = false;
+                } catch (NumberFormatException e) {
+                    e.getMessage();
+                    check = false;
+                }
+            } while (!check);
+
+            String email = " ";
+            do {
+                try {
+                    System.out.println("Email:");
                     email = sc.nextLine();
                     check = regexEmail(email);
                     if (check) {
-                        System.out.println();
+                        System.out.println("Ok");
                     } else {
-                        throw new EmailException("Email phải đúng định dạng abc@abc.abc");
+                        throw new EmailException("");
                     }
                 } catch (EmailException e) {
                     e.printStackTrace();
                 }
-            }
-            while (!check);
+            } while (!check);
             check = false;
-            System.out.println("Loại khách hàng");
-            String typeOfCustomer=sc.nextLine();
-            System.out.println("Địa chỉ");
-            String address=sc.nextLine();
-            Services services=new Services() {
-                @Override
-                public String showInfo() {
-                    return null;
-                }
-            };
-            Customer customer = new Customer(fullName,birthday,sex,numberPhone,email,typeOfCustomer,address,services);
+            System.out.println("Loại khách hàng:");
+            String typeOfCustomer = sc.nextLine();
+            System.out.println("Địa chỉ:");
+            String address = sc.nextLine();
+            Services services = null;
+            Customer customer = new Customer(fullName, birthDay, sex, idCard, numberPhone, email, typeOfCustomer, address, services);
             FileWriter fileWriter = new FileWriter(CUS_FILE);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             String line = customer.getFullName() + "," + customer.getBirthDay() + ","
-                    + customer.getSex() + "," + customer.getIdCard() + "," + customer.getEmail() + "," +
-                    customer.getFullName() + "," + customer.getTypeOfCustomer() + "," + customer.getAddress() + "," + customer.getServices();
+                    + customer.getSex() + "," + customer.getIdCard() + ","
+                    + customer.getNumberPhone() + "," + customer.getEmail() + ","
+                    + customer.getTypeOfCustomer() + "," + customer.getAddress() + ","
+                    + customer.getServices() + "\n";
+            bufferedWriter.write(line);
+            bufferedWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (NumberFormatException e) {
-            System.out.println("Vui lòng nhập số");
-        } catch (InputMismatchException e) {
-            System.out.println("Nhập đúng định dạng");
         }
     }
-
 
     private static void addNewService() {
         while (true) {
@@ -195,8 +231,7 @@ public class MainControllers {
                         addNewRoom();
                         break;
                     case 4:
-                        displayMainMenu();
-                        break;
+                        return;
                     case 5:
                         System.exit(0);
                         break;
@@ -332,10 +367,6 @@ public class MainControllers {
             bufferedWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (NumberFormatException e) {
-            System.out.println("Vui lòng nhập số");
-        } catch (InputMismatchException e) {
-            System.out.println("Nhập đúng định dạng");
         }
     }
 
@@ -456,10 +487,6 @@ public class MainControllers {
             bufferedWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (NumberFormatException e) {
-            System.out.println("Vui lòng nhập số");
-        } catch (InputMismatchException e) {
-            System.out.println("Nhập đúng định dạng");
         }
     }
 
@@ -538,17 +565,44 @@ public class MainControllers {
                 }
             } while (!check);
             check = false;
-            String freeConvenient;
+            FreeConvenient freeConvenient;
+            String nameFreeService;
             do {
-                System.out.println("Dịch vụ miễn phí đi kèm");
-                freeConvenient = sc.nextLine();
-                check = regexFreeConvenient(freeConvenient);
+                System.out.println("Nhập tên dịch vụ miễn phí:");
+                nameFreeService = sc.nextLine();
+                check = regexFreeConvenient(nameFreeService);
+                if (check) {
+                    System.out.println("Ok");
+                } else {
+                    System.out.println("sai định dạng");
+                }
+            } while (!check);
+            check = false;
+            String unit;
+            do {
+                System.out.println("Đơn vị:");
+                unit = sc.nextLine();
+                check = regexRentalCost(unit);
+                if (check) {
+                    System.out.println("Ok");
+                } else {
+                    System.out.println("Sai định dạng");
+                }
+
+            } while (!check);
+            check = false;
+            String price;
+            do {
+                System.out.println("Giá dịch vụ:");
+                price = sc.nextLine();
+                check = regexRentalCost(price);
                 if (check) {
                     System.out.println("Ok");
                 } else {
                     System.out.println("Sai định dạng");
                 }
             } while (!check);
+            freeConvenient = new FreeConvenient(nameFreeService, unit, price);
             Room room = new Room(id, name,
                     areaOfUse,
                     rentalCost,
@@ -556,19 +610,14 @@ public class MainControllers {
                     rentalType,
                     freeConvenient);
             String line = room.getId() + "," + room.getNameService() + "," + room.getAreaOfUse() + "," + room.getRentalCost() + "," + room.getMaxPeople() + "," + room.getRentalType() +
-                    "," + room.getFreeConvenient();
+                    "," + room.getFreeConvenient().getNameService()+","+room.getFreeConvenient().getUnit()+","+room.getFreeConvenient().getPrice()+"," + "\n";
             FileWriter fileWriter = new FileWriter(ROOM_FILE, true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             bufferedWriter.write(line);
             bufferedWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (NumberFormatException e) {
-            System.out.println("Vui lòng nhập số");
-        } catch (InputMismatchException e) {
-            System.out.println("Nhập đúng định dạng");
         }
-
     }
 
     private static void showService() {
@@ -655,18 +704,18 @@ public class MainControllers {
             FileReader fileReader = new FileReader(ROOM_FILE);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String line;
-            String temp[];
+            String[] temp;
             Room room;
             while ((line = bufferedReader.readLine()) != null) {
                 temp = line.split(",");
-                room = new Room(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6]);
+                room = new Room(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], new FreeConvenient(temp[6],temp[7],temp[8]));
                 roomList.add(room);
-                bufferedReader.close();
+
             }
             for (Room room1 : roomList) {
                 System.out.println(room1.toString());
             }
-
+            bufferedReader.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

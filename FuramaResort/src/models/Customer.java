@@ -5,7 +5,7 @@ public class Customer {
     private String birthDay;
     private String sex;
     private String idCard;
-    private String numberPhone;
+    private int numberPhone;
     private String email;
     private String typeOfCustomer;
     private String address;
@@ -14,7 +14,7 @@ public class Customer {
     public Customer(String fullName, String idCard, String sex,String numberPhone, String email, String typeOfCustomer, String address, Services services) {
     }
 
-    public Customer(String fullName, String birthDay, String sex, String idCard, String numberPhone, String email, String typeOfCustomer, String address, Services services) {
+    public Customer(String fullName, String birthDay, String sex, String idCard, int numberPhone, String email, String typeOfCustomer, String address, Services services) {
         this.fullName = fullName;
         this.birthDay = birthDay;
         this.sex = sex;
@@ -58,11 +58,11 @@ public class Customer {
         this.idCard = idCard;
     }
 
-    public String getNumberPhone() {
+    public int getNumberPhone() {
         return numberPhone;
     }
 
-    public void setNumberPhone(String numberPhone) {
+    public void setNumberPhone(int numberPhone) {
         this.numberPhone = numberPhone;
     }
 
