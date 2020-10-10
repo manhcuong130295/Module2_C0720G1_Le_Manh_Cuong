@@ -3,7 +3,7 @@ package models;
 public class Customer {
     private String fullName;
     private String birthDay;
-    private String sex;
+    private String gender;
     private String idCard;
     private int numberPhone;
     private String email;
@@ -11,13 +11,13 @@ public class Customer {
     private String address;
     private Services services;
 
-    public Customer(String fullName, String idCard, String sex,String numberPhone, String email, String typeOfCustomer, String address, Services services) {
+    public Customer(String fullName, String idCard, String gender, String numberPhone, String email, String typeOfCustomer, String address, Services services) {
     }
 
-    public Customer(String fullName, String birthDay, String sex, String idCard, int numberPhone, String email, String typeOfCustomer, String address, Services services) {
+    public Customer(String fullName, String birthDay, String gender, String idCard, int numberPhone, String email, String typeOfCustomer, String address, Services services) {
         this.fullName = fullName;
         this.birthDay = birthDay;
-        this.sex = sex;
+        this.gender = gender;
         this.idCard = idCard;
         this.numberPhone = numberPhone;
         this.email = email;
@@ -42,12 +42,12 @@ public class Customer {
         this.birthDay = birthDay;
     }
 
-    public String getSex() {
-        return sex;
+    public String getGender() {
+        return gender;
     }
 
-    public void setSex(String sex) {
-        this.sex = sex;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public String getIdCard() {
@@ -101,15 +101,15 @@ public class Customer {
     @Override
     public String toString() {
         return "Customer{" +
-                "fullName='" + fullName + '\'' +
-                ", birthDay=" + birthDay +
-                ", sex='" + sex + '\'' +
-                ", cMND=" + idCard +
-                ", numberPhone=" + numberPhone +
-                ", email='" + email + '\'' +
-                ", typeOfCustomer='" + typeOfCustomer + '\'' +
-                ", address='" + address + '\'' +
-                ", services=" + services +
+                "full name: '" + fullName + '\'' +
+                ", birthDay: " + birthDay +
+                ", gender: '" + gender + '\'' +
+                ", idCard: " + idCard +
+                ", numberPhone: " + numberPhone +
+                ", email: '" + email + '\'' +
+                ", typeOfCustomer:'" + typeOfCustomer + '\'' +
+                ", address:'" + address + '\'' +
+                ", services:" + services +
                 '}';
     }
 }

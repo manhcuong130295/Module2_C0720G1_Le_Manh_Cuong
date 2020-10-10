@@ -13,7 +13,9 @@ public class MainControllers {
     private static final String HOUSE_FILE = "D:\\ChuongTrinhCodegym\\Module2_C0720G1_Le_Manh_Cuong\\FuramaResort\\src\\data\\House.csv";
     private static final String VILLA_FILE = "D:\\ChuongTrinhCodegym\\Module2_C0720G1_Le_Manh_Cuong\\FuramaResort\\src\\data\\Villa.csv";
     private static final String ROOM_FILE = "D:\\ChuongTrinhCodegym\\Module2_C0720G1_Le_Manh_Cuong\\FuramaResort\\src\\data\\Room.csv";
+    public static final String BOOKING_FILE = "D:\\ChuongTrinhCodegym\\Module2_C0720G1_Le_Manh_Cuong\\FuramaResort\\src\\data\\Booking.csv";
     public static Scanner sc = new Scanner(System.in);
+
 
     public static void main(String[] args) {
         displayMainMenu();
@@ -42,6 +44,13 @@ public class MainControllers {
                     case 4:
                         showInformationOfCustomer();
                         break;
+                    case 5:
+                        addNewBooking();
+                        break;
+                    case 6:
+                        showInformationOfEmployee();
+
+                        break;
                     case 7:
                         System.exit(0);
                         break;
@@ -54,7 +63,159 @@ public class MainControllers {
         }
     }
 
-    private static void showInformationOfCustomer() {
+    private static void showInformationOfEmployee() {
+    }
+
+    private static void addNewBooking() {
+        while (true) {
+            System.out.println("1.Booking Vila" +
+                    "\n2.Booking House" +
+                    "\n3.Booking Room" +
+                    "\n4.Back to Menu" +
+                    "\n5.Exit");
+            try {
+                switch (Integer.parseInt(sc.nextLine())) {
+                    case 1:
+                        while (true) {
+                            try {
+                                String lineVilla = null;
+                                List<Customer> customerList = showInformationOfCustomer();
+                                System.out.println("Chọn Customer:");
+                                int chooseCus = Integer.parseInt(sc.nextLine());
+
+                                System.out.println(customerList.get(chooseCus - 1));
+                                Customer bookedCus = customerList.get(chooseCus - 1);
+                                List<Villa> villaList = showAllVilla();
+                                System.out.println("Chọn dịch vụ:");
+                                int chooseService = Integer.parseInt(sc.nextLine());
+
+                                System.out.println(villaList.get(chooseService - 1).toString());
+                                Villa bookedVilla = villaList.get(chooseService - 1);
+                                lineVilla = bookedVilla.getId() +
+                                        "," + bookedVilla.getNameService() +
+                                        "," + bookedVilla.getAreaOfUse() +
+                                        "," + bookedVilla.getRentalCost() +
+                                        "," + bookedVilla.getMaxPeople() +
+                                        "," + bookedVilla.getRentalType() +
+                                        "," + bookedVilla.getStandardRoomOfVilla() +
+                                        "," + bookedVilla.getAnotherConvenient() +
+                                        "," + bookedVilla.getFloorOfVilla();
+
+                                chooseCustomerAndService(lineVilla, bookedCus);
+
+
+                            } catch (NumberFormatException e) {
+                                e.getMessage();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            break;
+                        }
+                        break;
+
+                    case 2:
+                        while (true) {
+                            try {
+                                String lineHouse = null;
+                                List<Customer> customerList = showInformationOfCustomer();
+                                System.out.println("Chọn Customer:");
+                                int chooseCus = Integer.parseInt(sc.nextLine());
+
+                                System.out.println(customerList.get(chooseCus - 1));
+                                Customer bookedCus = customerList.get(chooseCus - 1);
+                                List<House> roomList = showAllHouse();
+                                System.out.println("Chọn dịch vụ:");
+                                int chooseService = Integer.parseInt(sc.nextLine());
+
+                                System.out.println(roomList.get(chooseService - 1).toString());
+                                House bookedhouse = roomList.get(chooseService - 1);
+                                lineHouse = bookedhouse.getId() +
+                                        "," + bookedhouse.getNameService() +
+                                        "," + bookedhouse.getAreaOfUse() +
+                                        "," + bookedhouse.getRentalCost() +
+                                        "," + bookedhouse.getMaxPeople() +
+                                        "," + bookedhouse.getRentalType() +
+                                        "," + bookedhouse.getStandardRoomOfHouse() +
+                                        "," + bookedhouse.getAnotherConvenientOfHouse() +
+                                        "," + bookedhouse.getFloors();
+
+                                chooseCustomerAndService(lineHouse, bookedCus);
+                                break;
+
+
+                            } catch (NumberFormatException e) {
+                                e.getMessage();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            break;
+                        }
+                        break;
+                    case 3:
+                        while (true) {
+                            try {
+                                String lineRoom = null;
+                                List<Customer> customerList = showInformationOfCustomer();
+                                System.out.println("Chọn Customer:");
+                                int chooseCus = Integer.parseInt(sc.nextLine());
+
+                                System.out.println(customerList.get(chooseCus - 1));
+                                Customer bookedCus = customerList.get(chooseCus - 1);
+                                List<Room> roomList = showAllRoom();
+                                System.out.println("Chọn dịch vụ:");
+                                int chooseService = Integer.parseInt(sc.nextLine());
+
+                                System.out.println(roomList.get(chooseService - 1).toString());
+                                Room bookedRoom = roomList.get(chooseService - 1);
+                                lineRoom = bookedRoom.getId() +
+                                        "," + bookedRoom.getNameService() +
+                                        "," + bookedRoom.getAreaOfUse() +
+                                        "," + bookedRoom.getRentalCost() +
+                                        "," + bookedRoom.getMaxPeople() +
+                                        "," + bookedRoom.getRentalType() +
+                                        "," + bookedRoom.getFreeConvenient();
+
+                                chooseCustomerAndService(lineRoom, bookedCus);
+                                break;
+
+
+                            } catch (NumberFormatException e) {
+                                e.getMessage();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            break;
+                        }
+                        break;
+                    case 4:
+                        return;
+                    case 5:
+                        System.exit(0);
+                        break;
+                    default:
+                        System.out.println("vui lòng chọn từ 1 đến 5");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Chọn trong danh sách ở trên:");
+            }
+        }
+    }
+
+    private static void chooseCustomerAndService(String lineService, Customer bookedCus) throws IOException {
+        String lineBooked;
+        lineBooked = bookedCus.getFullName() + "," + bookedCus.getBirthDay() + ","
+                + bookedCus.getGender() + "," + bookedCus.getIdCard() + ","
+                + bookedCus.getNumberPhone() + "," + bookedCus.getEmail() + ","
+                + bookedCus.getTypeOfCustomer() + "," + bookedCus.getAddress() + ","
+                + "Service {" + lineService + "}" + "\n";
+        FileWriter fileWriter = new FileWriter(BOOKING_FILE, true);
+        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+        bufferedWriter.write(lineBooked);
+        bufferedWriter.close();
+        return;
+    }
+
+    private static List<Customer> showInformationOfCustomer() {
         List<Customer> customerList = new ArrayList<>();
         try {
             FileReader fileReader = new FileReader(CUS_FILE);
@@ -67,15 +228,18 @@ public class MainControllers {
                 customer = new Customer(temp[0], temp[1], temp[2], temp[3], Integer.parseInt(temp[4]), temp[5], temp[6], temp[7], null);
                 customerList.add(customer);
             }
-            bufferedReader.close();
+            int index = 1;
+            Collections.sort(customerList, new SortByNameAndBirthYear());
             for (Customer customer1 : customerList) {
-                System.out.println(customer1.toString());
+                System.out.println(index++ + "." + customer1);
             }
+            bufferedReader.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return customerList;
     }
 
     private static void addNewCustomer() {
@@ -125,15 +289,15 @@ public class MainControllers {
                 }
             } while (!check);
             check = false;
-            String sex = " ";
+            String gender = " ";
             do {
                 try {
                     System.out.println("Giới tính");
-                    sex = sc.nextLine();
-                    String tempSex = sex.toLowerCase();
+                    gender = sc.nextLine();
+                    String tempSex = gender.toLowerCase();
                     check = regexSex(tempSex);
                     if (check) {
-                        sex = Character.toUpperCase(tempSex.charAt(0)) + tempSex.substring(1);
+                        gender = Character.toUpperCase(tempSex.charAt(0)) + tempSex.substring(1);
                         System.out.println("Ok");
                     } else {
                         throw new SexException("");
@@ -197,11 +361,11 @@ public class MainControllers {
             System.out.println("Địa chỉ:");
             String address = sc.nextLine();
             Services services = null;
-            Customer customer = new Customer(fullName, birthDay, sex, idCard, numberPhone, email, typeOfCustomer, address, services);
+            Customer customer = new Customer(fullName, birthDay, gender, idCard, numberPhone, email, typeOfCustomer, address, services);
             FileWriter fileWriter = new FileWriter(CUS_FILE);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             String line = customer.getFullName() + "," + customer.getBirthDay() + ","
-                    + customer.getSex() + "," + customer.getIdCard() + ","
+                    + customer.getGender() + "," + customer.getIdCard() + ","
                     + customer.getNumberPhone() + "," + customer.getEmail() + ","
                     + customer.getTypeOfCustomer() + "," + customer.getAddress() + ","
                     + customer.getServices() + "\n";
@@ -360,7 +524,7 @@ public class MainControllers {
             } while (!check);
             Villa villa = new Villa(id, name, areaOfUse, rentalCost, maxPeople, rentalType, standardRoomOfVilla, anotherConvenientOfVilla, poolArea, floorVilla);
             String line = villa.getId() + "," + villa.getNameService() + "," + villa.getAreaOfUse() + "," + villa.getRentalCost() + "," + villa.getMaxPeople() + "," + villa.getRentalType() + "," + villa.getStandardRoomOfVilla()
-                    + "," + villa.getAnotherConvenient() + "," + villa.getFloorOfVilla();
+                    + "," + villa.getAnotherConvenient() + "," + villa.getPoolArea() + "," + villa.getFloorOfVilla() + "\n";
             FileWriter fileWriter = new FileWriter(VILLA_FILE, true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             bufferedWriter.write(line);
@@ -480,7 +644,7 @@ public class MainControllers {
                     anotherConvenientOfHouse,
                     floorHouse);
             String line = house.getId() + "," + house.getNameService() + "," + house.getAreaOfUse() + "," + house.getRentalCost() + "," + house.getMaxPeople() + "," + house.getRentalType() + "," + house.getStandardRoomOfHouse()
-                    + "," + house.getAnotherConvenientOfHouse() + "," + house.getFloors();
+                    + "," + house.getAnotherConvenientOfHouse() + "," + house.getFloors() + "\n";
             FileWriter fileWriter = new FileWriter(HOUSE_FILE, true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             bufferedWriter.write(line);
@@ -610,7 +774,7 @@ public class MainControllers {
                     rentalType,
                     freeConvenient);
             String line = room.getId() + "," + room.getNameService() + "," + room.getAreaOfUse() + "," + room.getRentalCost() + "," + room.getMaxPeople() + "," + room.getRentalType() +
-                    "," + room.getFreeConvenient().getNameService()+","+room.getFreeConvenient().getUnit()+","+room.getFreeConvenient().getPrice()+"," + "\n";
+                    "," + room.getFreeConvenient().getNameService() + "," + room.getFreeConvenient().getUnit() + "," + room.getFreeConvenient().getPrice() + "," + "\n";
             FileWriter fileWriter = new FileWriter(ROOM_FILE, true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             bufferedWriter.write(line);
@@ -666,29 +830,87 @@ public class MainControllers {
     }
 
     private static void showAllNameNameRoomNotDuplicate() {
+        Set<Room> listRoom = new TreeSet<>(new Comparator<Room>() {
+            @Override
+            public int compare(Room room1, Room room2) {
+                return room1.getNameService().compareTo(room2.getNameService());
+            }
+        });
+        try {
+            FileReader fileReader = new FileReader(ROOM_FILE);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String line;
+            String[] temp;
+            Room room;
+            int index = 1;
+            while ((line = bufferedReader.readLine()) != null) {
+                temp = line.split(",");
+                room = new Room(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], new FreeConvenient(temp[6], temp[7], temp[8]));
+                listRoom.add(room);
+
+            }
+            for (Room room1 : listRoom) {
+                System.out.println( room1.toString());
+            }
+            bufferedReader.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private static void showAllNameHouseNotDuplicate() {
+     Set<House> listHouse=new TreeSet<>(new Comparator<House>() {
+         @Override
+         public int compare(House house1, House house2) {
+             return house1.getNameService().compareTo(house2.getNameService());
+         }
+     });
+        try {
+            FileReader fileReader = new FileReader(HOUSE_FILE);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String line;
+            String temp[];
+            House house;
+            int index = 1;
+            while ((line = bufferedReader.readLine()) != null) {
+                temp = line.split(",");
+                house = new House(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], temp[7], temp[8]);
+                listHouse.add(house);
+            }
+            bufferedReader.close();
+            for (House house1 : listHouse) {
+                System.out.println(index++ + " , " + house1.toString());
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void showAllNameVillaNotDuplicate() {
-    }
+        Set<Villa> listVilla = new TreeSet<>(new Comparator<>() {
+            @Override
+            public int compare(Villa villa1, Villa villa2) {
+                return villa1.getNameService().compareTo(villa2.getNameService());
+            }
+        });
 
-    private static void showAllVilla() {
-        List<Villa> villaList = new ArrayList<>();
         try {
             FileReader fileReader = new FileReader(VILLA_FILE);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String line;
-            String temp[];
+            String[] temp;
             Villa villa;
             while ((line = bufferedReader.readLine()) != null) {
                 temp = line.split(",");
                 villa = new Villa(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], temp[7], temp[8], temp[9]);
-                villaList.add(villa);
+                listVilla.add(villa);
             }
-            bufferedReader.close();
-            for (Villa villa1 : villaList) {
+            for (Villa villa1 : listVilla) {
                 System.out.println(villa1.toString());
             }
         } catch (FileNotFoundException e) {
@@ -698,7 +920,34 @@ public class MainControllers {
         }
     }
 
-    private static void showAllRoom() {
+    private static List<Villa> showAllVilla() {
+        List<Villa> villaList = new ArrayList<>();
+
+        try {
+            FileReader fileReader = new FileReader(VILLA_FILE);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String line;
+            String temp[];
+            Villa villa;
+            int index = 1;
+            while ((line = bufferedReader.readLine()) != null) {
+                temp = line.split(",");
+                villa = new Villa(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], temp[7], temp[8], temp[9]);
+                villaList.add(villa);
+            }
+            bufferedReader.close();
+            for (Villa villa1 : villaList) {
+                System.out.println(index++ + " . " + villa1.toString());
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return villaList;
+    }
+
+    private static List<Room> showAllRoom() {
         List<Room> roomList = new ArrayList<>();
         try {
             FileReader fileReader = new FileReader(ROOM_FILE);
@@ -706,14 +955,15 @@ public class MainControllers {
             String line;
             String[] temp;
             Room room;
+            int index = 1;
             while ((line = bufferedReader.readLine()) != null) {
                 temp = line.split(",");
-                room = new Room(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], new FreeConvenient(temp[6],temp[7],temp[8]));
+                room = new Room(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], new FreeConvenient(temp[6], temp[7], temp[8]));
                 roomList.add(room);
 
             }
             for (Room room1 : roomList) {
-                System.out.println(room1.toString());
+                System.out.println(index++ + " , " + room1.toString());
             }
             bufferedReader.close();
         } catch (FileNotFoundException e) {
@@ -721,9 +971,10 @@ public class MainControllers {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return roomList;
     }
 
-    private static void showAllHouse() {
+    private static List<House> showAllHouse() {
         List<House> houseList = new ArrayList<>();
         try {
             FileReader fileReader = new FileReader(HOUSE_FILE);
@@ -731,6 +982,7 @@ public class MainControllers {
             String line;
             String temp[];
             House house;
+            int index = 1;
             while ((line = bufferedReader.readLine()) != null) {
                 temp = line.split(",");
                 house = new House(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], temp[7], temp[8]);
@@ -738,13 +990,14 @@ public class MainControllers {
             }
             bufferedReader.close();
             for (House house1 : houseList) {
-                System.out.println(house1.toString());
+                System.out.println(index++ + " , " + house1.toString());
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return houseList;
     }
 
 }
