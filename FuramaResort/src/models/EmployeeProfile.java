@@ -47,7 +47,6 @@ public class EmployeeProfile {
                     System.out.println("Wrong format ! Input again");
                 }
 
-
             } while (!check);
 
         } catch (FileNotFoundException e) {
@@ -55,9 +54,5 @@ public class EmployeeProfile {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void main(String[] args) {
-        searchEmployeeProfile();
     }
 }
