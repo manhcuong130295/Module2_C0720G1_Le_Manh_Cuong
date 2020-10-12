@@ -60,7 +60,7 @@ public class MainControllers {
                         showBookedfilmticketCustomer();
                         break;
                     case 8:
-                        searchEmployeeProfile();
+                        EmployeeProfile.searchEmployeeProfile();
                         break;
                     case 9:
                         System.exit(0);
@@ -73,47 +73,6 @@ public class MainControllers {
             }
         }
     }
-
-    private static void searchEmployeeProfile() {
-        Stack<EmployeeProfile> employeeProfiles = new Stack<EmployeeProfile>();
-        try {
-            FileReader fileReader = new FileReader(MainControllers.EMPLOYEE_FILE);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String line;
-            String[] temp;
-            EmployeeProfile profile;
-            while ((line = bufferedReader.readLine()) != null) {
-                temp = line.split(",");
-                profile = new EmployeeProfile(Integer.parseInt(temp[0]), new Employee(temp[1], Integer.parseInt(temp[2]), temp[3]));
-                employeeProfiles.add(profile);
-            }
-            boolean check = false;
-            do {
-                System.out.println("Enter name Employee want search:");
-                String nameEmployee = sc.nextLine().toLowerCase();
-                while (!employeeProfiles.isEmpty()) {
-                    EmployeeProfile employeeProfile = employeeProfiles.pop();
-                    check = nameEmployee.equals(employeeProfile.getEmployee().getName().toLowerCase());
-                    if (check) {
-                        System.out.println(employeeProfile);
-                        break;
-                    } else {
-                        check = false;
-                    }
-                }
-            } while (!check);
-            if (employeeProfiles.isEmpty()) {
-                System.err.println("List Profile is Empty!");
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (NumberFormatException e) {
-            System.out.println("Please input number");
-        }
-    }
-
 
     private static void showBookedfilmticketCustomer() {
         Queue<Customer> bookedFilmTickedList = new LinkedList<Customer>();
