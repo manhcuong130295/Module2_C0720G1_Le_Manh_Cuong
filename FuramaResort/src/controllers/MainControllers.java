@@ -3,7 +3,6 @@ package controllers;
 import commons.*;
 import models.*;
 
-import javax.sound.midi.MidiFileFormat;
 import java.io.*;
 import java.util.*;
 
@@ -126,22 +125,24 @@ public class MainControllers {
     private static void addNewBooking() {
 
         while (true) {
-            List<Customer> customerList = showInformationOfCustomer();
-            System.out.println("Choose Customer");
-            int chooseCus = Integer.parseInt(sc.nextLine());
-            System.out.println(customerList.get(chooseCus - 1));
-            Customer bookedCus = customerList.get(chooseCus - 1);
-            System.out.println("1.Booking Villa" +
-                    "\n2.Booking House" +
-                    "\n3.Booking Room" +
-                    "\n4.Back to Menu" +
-                    "\n5.Exit");
             try {
+                List<Customer> customerList = showInformationOfCustomer();
+                System.out.println("Choose Customer");
+                int chooseCus = Integer.parseInt(sc.nextLine());
+                System.out.println(customerList.get(chooseCus - 1));
+                Customer bookedCus = customerList.get(chooseCus - 1);
+                System.out.println("1.Booking Villa" +
+                        "\n2.Booking House" +
+                        "\n3.Booking Room" +
+                        "\n4.Back to Menu" +
+                        "\n5.Exit");
+
                 switch (Integer.parseInt(sc.nextLine())) {
                     case 1:
                         while (true) {
+
                             try {
-                                List<Villa> villaList = showAllVilla();
+                                List<Villa> villaList = getVilla();
                                 System.out.println("Choose Villa:");
                                 int chooseService = Integer.parseInt(sc.nextLine());
                                 String lineVilla;
@@ -168,9 +169,10 @@ public class MainControllers {
                         break;
                     case 2:
                         while (true) {
+
                             try {
 
-                                List<House> roomList = showAllHouse();
+                                List<House> roomList = getHouse();
                                 System.out.println("Choose House:");
                                 int chooseService = Integer.parseInt(sc.nextLine());
                                 String lineHouse;
@@ -200,9 +202,10 @@ public class MainControllers {
                         break;
                     case 3:
                         while (true) {
+
                             try {
 
-                                List<Room> roomList = showAllRoom();
+                                List<Room> roomList = getRoom();
                                 System.out.println("Choose Room:");
                                 int chooseService = Integer.parseInt(sc.nextLine());
                                 String lineRoom;
@@ -236,6 +239,7 @@ public class MainControllers {
                     default:
                         System.out.println("please choose 1 to 5");
                 }
+                break;
             } catch (NumberFormatException e) {
                 System.out.println("please input number");
             }
@@ -856,8 +860,7 @@ public class MainControllers {
                         showAllNameNameRoomNotDuplicate();
                         break;
                     case 7:
-                        displayMainMenu();
-                        break;
+                        return;
                     case 8:
                         System.exit(0);
                         break;
@@ -870,175 +873,134 @@ public class MainControllers {
         }
     }
 
+
+    private static List readFile(String fileName) {
+        List<Villa> villaList = new ArrayList<>();
+        List<House> houseList = new ArrayList<>();
+        List<Room> roomList = new ArrayList<>();
+        List list = null;
+        FileReader fileReader = null;
+        try {
+            fileReader = new FileReader(fileName);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String line;
+            String[] temp;
+            Villa villa;
+            House house;
+            Room room;
+            while ((line = bufferedReader.readLine()) != null) {
+                temp = line.split(",");
+                if (fileName == VILLA_FILE) {
+                    villa = new Villa(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], temp[7], temp[8], temp[9]);
+                    villaList.add(villa);
+                    list = villaList;
+                } else if (fileName == HOUSE_FILE) {
+                    house = new House(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], temp[7], temp[8]);
+                    houseList.add(house);
+                    list = houseList;
+                } else if (fileName == ROOM_FILE) {
+                    room = new Room(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], new FreeConvenient(temp[6], temp[7], temp[8]));
+                    roomList.add(room);
+                    list = roomList;
+                } else {
+                    list = null;
+                }
+
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     private static void showAllNameNameRoomNotDuplicate() {
-        Set<Room> listRoom = new TreeSet<>(new Comparator<Room>() {
+        List<Room> roomList = getRoom();
+        Set<Room> setRoom = new TreeSet<>(new Comparator<Room>() {
             @Override
             public int compare(Room room1, Room room2) {
                 return room1.getNameService().compareTo(room2.getNameService());
             }
         });
-        try {
-            FileReader fileReader = new FileReader(ROOM_FILE);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String line;
-            String[] temp;
-            Room room;
-            int index = 1;
-            while ((line = bufferedReader.readLine()) != null) {
-                temp = line.split(",");
-                room = new Room(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], new FreeConvenient(temp[6], temp[7], temp[8]));
-                listRoom.add(room);
-
-            }
-            for (Room room1 : listRoom) {
-                System.out.println(room1.toString());
-            }
-            bufferedReader.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        setRoom.addAll(roomList);
+        for (Room room : setRoom) {
+            System.out.println(room.toString());
         }
 
     }
 
     private static void showAllNameHouseNotDuplicate() {
-        Set<House> listHouse = new TreeSet<>(new Comparator<House>() {
+        List<House> houseList = getHouse();
+        Set<House> setHouse = new TreeSet<>(new Comparator<House>() {
             @Override
             public int compare(House house1, House house2) {
                 return house1.getNameService().compareTo(house2.getNameService());
             }
         });
-        try {
-            FileReader fileReader = new FileReader(HOUSE_FILE);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String line;
-            String temp[];
-            House house;
-            int index = 1;
-            while ((line = bufferedReader.readLine()) != null) {
-                temp = line.split(",");
-                house = new House(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], temp[7], temp[8]);
-                listHouse.add(house);
-            }
-            bufferedReader.close();
-            for (House house1 : listHouse) {
-                System.out.println(index++ + " , " + house1.toString());
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        setHouse.addAll(houseList);
+        for (House house : setHouse) {
+            System.out.println(house.toString());
         }
     }
 
     private static void showAllNameVillaNotDuplicate() {
-        Set<Villa> listVilla = new TreeSet<>(new Comparator<>() {
+        List<Villa> villaList = getVilla();
+        Set<Villa> setVilla = new TreeSet<>(new Comparator<>() {
             @Override
             public int compare(Villa villa1, Villa villa2) {
                 return villa1.getNameService().compareTo(villa2.getNameService());
             }
         });
-
-        try {
-            FileReader fileReader = new FileReader(VILLA_FILE);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String line;
-            String[] temp;
-            Villa villa;
-            while ((line = bufferedReader.readLine()) != null) {
-                temp = line.split(",");
-                villa = new Villa(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], temp[7], temp[8], temp[9]);
-                listVilla.add(villa);
-            }
-            for (Villa villa1 : listVilla) {
-                System.out.println(villa1.toString());
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        setVilla.addAll(villaList);
+        for (Villa villa : setVilla) {
+            System.out.println(villa.toString());
         }
     }
 
-    private static List<Villa> showAllVilla() {
+    private static List<Villa> getVilla() {
         List<Villa> villaList = new ArrayList<>();
-
-        try {
-            FileReader fileReader = new FileReader(VILLA_FILE);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String line;
-            String temp[];
-            Villa villa;
-            int index = 1;
-            while ((line = bufferedReader.readLine()) != null) {
-                temp = line.split(",");
-                villa = new Villa(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], temp[7], temp[8], temp[9]);
-                villaList.add(villa);
-            }
-            bufferedReader.close();
-            for (Villa villa1 : villaList) {
-                System.out.println(index++ + " . " + villa1.toString());
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        villaList = readFile(VILLA_FILE);
         return villaList;
     }
 
-    private static List<Room> showAllRoom() {
-        List<Room> roomList = new ArrayList<>();
-        try {
-            FileReader fileReader = new FileReader(ROOM_FILE);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String line;
-            String[] temp;
-            Room room;
-            int index = 1;
-            while ((line = bufferedReader.readLine()) != null) {
-                temp = line.split(",");
-                room = new Room(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], new FreeConvenient(temp[6], temp[7], temp[8]));
-                roomList.add(room);
-
-            }
-            for (Room room1 : roomList) {
-                System.out.println(index++ + " , " + room1.toString());
-            }
-            bufferedReader.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+    private static void showAllVilla() {
+        List<Villa> villaList = getVilla();
+        int index = 1;
+        for (Villa villa : villaList) {
+            System.out.println(index++ + "," + villa);
         }
+    }
+
+    private static List<House> getHouse() {
+        List<House> houseList = new ArrayList<>();
+        houseList = readFile(HOUSE_FILE);
+        return houseList;
+    }
+
+    private static void showAllHouse() {
+        List<House> houseList = new ArrayList<>();
+        houseList = readFile(HOUSE_FILE);
+        int index = 1;
+        for (House house : houseList) {
+            System.out.println(index++ + "," + house);
+        }
+    }
+
+    private static List<Room> getRoom() {
+        List<Room> roomList = new ArrayList<>();
+        roomList = readFile(ROOM_FILE);
         return roomList;
     }
 
-    private static List<House> showAllHouse() {
-        List<House> houseList = new ArrayList<>();
-        try {
-            FileReader fileReader = new FileReader(HOUSE_FILE);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String line;
-            String temp[];
-            House house;
-            int index = 1;
-            while ((line = bufferedReader.readLine()) != null) {
-                temp = line.split(",");
-                house = new House(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], temp[7], temp[8]);
-                houseList.add(house);
-            }
-            bufferedReader.close();
-            for (House house1 : houseList) {
-                System.out.println(index++ + " , " + house1.toString());
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+    private static void showAllRoom() {
+        List<Room> roomList = getRoom();
+        int index = 1;
+        for (Room room : roomList) {
+            System.out.println(index++ + "," + room);
         }
-        return houseList;
     }
+
 
 }
